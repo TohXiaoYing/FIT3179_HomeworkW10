@@ -1,0 +1,52 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+        "url": "../data/owid_covid_ALL.csv"
+    },
+    "transform": [
+        {"filter":"datum.continent != '' "}
+      ],
+    "vconcat": [
+        {
+            "width": 600,
+            "height": 400,
+            "mark": "area",
+            "encoding": {
+                "x": {
+                    "field": "conv_date", 
+                    "timeUnit": "yearmonthdate", 
+                    "scale": {"domain": {"param": "brush"}},
+                    "axis": {"title": "","domain": false,  "tickSize": 0}},
+                "y": {
+                    "aggregate": "sum", "field": "new_vaccinations"
+                },
+                "tooltip":[
+                    {"field": "new_vaccinations", "aggregate": "sum", "title": "New Vaccinations"}
+                ],
+                "color": {"field":"continent"}
+                    
+            }
+        },
+        {
+            "width": 600,
+            "height": 60,
+            "mark": "line",
+            "params": [
+                {"name": "brush", 
+                "select": {"type": "interval","encodings": ["x"]}}
+                ],                
+            "encoding": {
+                "x": {
+                    "timeUnit": "yearmonthdate",
+                    "field": "conv_date"
+                  },
+                "y": {
+                    "aggregate": "sum",
+                    "field": "new_vaccinations",
+                    "type": "quantitative",
+                    "axis": {"tickCount": 3, "grid": false}
+                }
+            }
+        }
+    ]
+}
