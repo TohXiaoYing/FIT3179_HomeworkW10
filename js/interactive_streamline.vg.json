@@ -1,5 +1,6 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "New Vaccinations in Each Continent (2020-2022 latest)",
     "data": {
         "url": "https://raw.githubusercontent.com/TohXiaoYing/FIT3179_HomeworkW10/main/data/owid_covid_ALL.csv"
     },
@@ -16,9 +17,11 @@
                     "field": "conv_date", 
                     "timeUnit": "yearmonthdate", 
                     "scale": {"domain": {"param": "brush"}},
-                    "axis": {"title": "","domain": false,  "tickSize": 0}},
+                    "axis": {"title": "Date","domain": false,  "tickSize": 0}},
+                    
                 "y": {
-                    "aggregate": "sum", "field": "new_vaccinations"
+                    "aggregate": "sum", "field": "new_vaccinations",
+                    "axis":{"title":"New Vaccinations"}
                 },
                 "tooltip":[
                     {"field": "new_vaccinations", "aggregate": "sum", "title": "New Vaccinations"}
@@ -38,13 +41,14 @@
             "encoding": {
                 "x": {
                     "timeUnit": "yearmonthdate",
-                    "field": "conv_date"
+                    "field": "conv_date",
+                    "axis":{"title":""}
                   },
                 "y": {
                     "aggregate": "sum",
                     "field": "new_vaccinations",
                     "type": "quantitative",
-                    "axis": {"tickCount": 3, "grid": false}
+                    "axis": {"tickCount": 3, "grid": false, "title": ""}
                 }
             }
         }
