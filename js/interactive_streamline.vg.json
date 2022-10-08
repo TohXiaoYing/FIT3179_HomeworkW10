@@ -4,8 +4,38 @@
     "data": {
         "url": "https://raw.githubusercontent.com/TohXiaoYing/FIT3179_HomeworkW10/main/data/owid_covid_ALL.csv"
     },
+    "params": [
+        {
+        "name": "Continent_selection",
+        "bind": {
+        "input": "select",
+        "options": [
+            null,
+            "Africa",
+            "Asia",
+            "Europe",
+            "North America",
+            "Oceania",
+            "South America"
+            ],
+        "labels":[
+            "Show All",
+            "Africa",
+            "Asia",
+            "Europe",
+            "North America",
+            "Oceania",
+            "South America"
+            ],
+      "name": "Continent Selection: "
+        }
+      }
+    ],
     "transform": [
-        {"filter":"datum.continent != '' "}
+        {"filter":"datum.continent != '' "},
+        {
+            "filter": "Continent_selection == null || datum.continent == Continent_selection"
+        }
       ],
     "vconcat": [
         {
@@ -23,12 +53,37 @@
                     "aggregate": "sum", "field": "new_vaccinations",
                     "axis":{"title":"New Vaccinations"}
                 },
+                
                 "tooltip":[
                     {"field": "new_vaccinations", "aggregate": "sum", "title": "New Vaccinations"}
                 ],
-                "color": {"field":"continent"}
+                "color": {
+                    "field": "continent", 
+                    "type": "nominal",
+                    "scale": {
+                        "domain": [
+                            "Africa",
+                            "Asia",
+                            "Europe",
+                            "North America",
+                            "Oceania",
+                            "South America"
+                            
+                        ],
+                        "range": [
+                            "#377eb8",
+                            "#ff7f00",
+                            "#d62728",
+                            "#17becf",
+                            "#2ca02c",
+                            "#ffd801"
+                            
+                        ]
+                    }
+                }
                     
             }
+        
         },
         {
             "width": 600,
